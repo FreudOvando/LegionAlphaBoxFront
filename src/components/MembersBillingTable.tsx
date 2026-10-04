@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Check, ChevronDown, ChevronRight, Pencil, X } from 'lucide-react'
-import { useAllPayments, useUpdateFee, useUsers } from '@/hooks/useBilling'
+import { Check, ChevronDown, ChevronRight, Pencil, Trash2, X } from 'lucide-react'
+import { useAllPayments, useDeleteUser, useUpdateFee, useUsers } from '@/hooks/useBilling'
 import { RegisterPaymentButton } from './RegisterPaymentButton'
 import { formatMXN } from '@/lib/currency'
 
@@ -8,6 +8,7 @@ export function MembersBillingTable() {
   const { data: users, isLoading, isError } = useUsers()
   const { data: payments } = useAllPayments()
   const updateFee = useUpdateFee()
+  const deleteUser = useDeleteUser()
 
   const [editingFeeId, setEditingFeeId] = useState<number | null>(null)
   const [feeDraft, setFeeDraft] = useState('')
@@ -32,10 +33,6 @@ export function MembersBillingTable() {
       .sort((a, b) => b.paymentDate.localeCompare(a.paymentDate))
   }
 
-  function latestPaymentFor(userId: number) {
-    return paymentsFor(userId)[0]
-  }
-
   function startEditFee(userId: number, current: number | null | undefined) {
     setEditingFeeId(userId)
     setFeeDraft(current?.toString() ?? '')
@@ -45,6 +42,20 @@ export function MembersBillingTable() {
     const value = Number(feeDraft)
     if (Number.isNaN(value) || value < 0) return
     updateFee.mutate({ id: userId, monthlyFee: value }, { onSuccess: () => setEditingFeeId(null) })
+  }
+
+  function handleDeleteMember(userId: number, name: string) {
+    const confirmed = confirm(
+      `¿Eliminar a ${name} por completo?\n\n` +
+        `Esto borrará TODO su registro de forma permanente: sus puntajes de WODs, ` +
+        `sus inscripciones y resultados en competencias, y su historial de pagos. ` +
+        `No quedará nada guardado.\n\n` +
+        `Si quiere volver a usar la app, tendrá que registrarse de nuevo desde cero.\n\n` +
+        `Esta acción no se puede deshacer. ¿Continuar?`,
+    )
+    if (confirmed) {
+      deleteUser.mutate(userId)
+    }
   }
 
   return (
@@ -59,6 +70,7 @@ export function MembersBillingTable() {
             <th className="px-4 py-3 font-medium">Próximo pago</th>
             <th className="px-4 py-3 font-medium">Estado</th>
             <th className="px-4 py-3 font-medium">Pago</th>
+            <th className="px-4 py-3 font-medium"></th>
           </tr>
         </thead>
         <tbody>
@@ -127,11 +139,20 @@ export function MembersBillingTable() {
                   <td className="px-4 py-3">
                     <RegisterPaymentButton userId={athlete.id} defaultAmount={athlete.monthlyFee ?? null} />
                   </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => handleDeleteMember(athlete.id, `${athlete.firstName} ${athlete.lastName}`)}
+                      className="text-zinc-500 hover:text-red-400"
+                      aria-label={`Eliminar a ${athlete.firstName} ${athlete.lastName}`}
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
                 </tr>
                 {isExpanded && (
                   <tr className="border-b border-zinc-800 bg-zinc-950/40 last:border-0">
                     <td></td>
-                    <td colSpan={6} className="px-4 py-3">
+                    <td colSpan={7} className="px-4 py-3">
                       {history.length === 0 ? (
                         <p className="text-xs text-zinc-500">Sin historial de pagos.</p>
                       ) : (

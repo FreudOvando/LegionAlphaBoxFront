@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { createPayment, getAllPayments, getUserPayments } from '@/api/payments';
 import { getErrorMessage } from '@/lib/errors';
-import { getMe, getUsers, updateUserFee } from '@/api/users';
+import { deleteUser, getMe, getUsers, updateUserFee } from '@/api/users';
 export function useUserPayments(userId) {
     return useQuery({
         queryKey: ['payments', 'user', userId],
@@ -38,6 +38,18 @@ export function useUsers() {
     return useQuery({
         queryKey: ['users', 'all'],
         queryFn: getUsers,
+    });
+}
+export function useDeleteUser() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => deleteUser(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users', 'all'] });
+            queryClient.invalidateQueries({ queryKey: ['payments', 'all'] });
+            toast.success('Miembro eliminado');
+        },
+        onError: (error) => toast.error(getErrorMessage(error)),
     });
 }
 export function useUpdateFee() {

@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 import { createPayment, getAllPayments, getUserPayments } from '@/api/payments'
 import { getErrorMessage } from '@/lib/errors'
 import type { PaymentPayload } from '@/types/payment'
-import { getMe, getUsers, updateUserFee } from '@/api/users'
+import { deleteUser, getMe, getUsers, updateUserFee } from '@/api/users'
 
 export function useUserPayments(userId: number) {
   return useQuery({
@@ -44,6 +44,19 @@ export function useUsers() {
   return useQuery({
     queryKey: ['users', 'all'],
     queryFn: getUsers,
+  })
+}
+
+export function useDeleteUser() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => deleteUser(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users', 'all'] })
+      queryClient.invalidateQueries({ queryKey: ['payments', 'all'] })
+      toast.success('Miembro eliminado')
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
   })
 }
 

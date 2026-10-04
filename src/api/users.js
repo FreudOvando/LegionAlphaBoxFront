@@ -17,3 +17,6 @@ export async function updateUserFee(id, monthlyFee) {
     const { data } = await apiClient.patch(`/users/${id}/fee`, { monthlyFee });
     return data;
 }
+export async function deleteUser(id) {
+    await apiClient.delete(`/users/${id}`);
+}

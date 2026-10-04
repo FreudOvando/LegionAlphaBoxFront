@@ -23,3 +23,7 @@ export async function updateUserFee(id: number, monthlyFee: number): Promise<Use
   const { data } = await apiClient.patch<User>(`/users/${id}/fee`, { monthlyFee })
   return data
 }
+
+export async function deleteUser(id: number): Promise<void> {
+  await apiClient.delete(`/users/${id}`)
+}
