@@ -10,6 +10,17 @@ export interface User {
   monthlyFee?: number | null
 }
 
+export interface User {
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  role: UserRole
+  photoUrl?: string | null
+  monthlyFee?: number | null
+  notes?: string | null
+}
+
 export interface LoginPayload {
   email: string
   password: string

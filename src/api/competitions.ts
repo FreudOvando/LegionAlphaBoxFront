@@ -15,6 +15,10 @@ export async function getCompetitions(): Promise<Competition[]> {
   return data
 }
 
+export async function deleteEnrollment(enrollmentId: number): Promise<void> {
+  await apiClient.delete(`/competitions/enrollments/${enrollmentId}`)
+}
+
 export async function getCompetition(id: number): Promise<Competition> {
   const { data } = await apiClient.get<Competition>(`/competitions/${id}`)
   return data

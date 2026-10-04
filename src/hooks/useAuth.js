@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useState } from 'react';
 import { clearSession, getStoredUser, setSession, setStoredUser } from '@/lib/authStorage';
-import { updateProfilePhoto } from '@/api/users';
+import { updateProfileNotes, updateProfilePhoto } from '@/api/users';
 const AuthContext = createContext(undefined);
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(() => getStoredUser());
@@ -21,7 +21,15 @@ export function AuthProvider({ children }) {
         setStoredUser(updatedUser);
         setUser(updatedUser);
     }
-    return _jsx(AuthContext.Provider, { value: { user, login, logout, updatePhotoUrl }, children: children });
+    async function updateNotes(notes) {
+        if (!user)
+            return;
+        await updateProfileNotes(notes);
+        const updatedUser = { ...user, notes };
+        setStoredUser(updatedUser);
+        setUser(updatedUser);
+    }
+    return (_jsx(AuthContext.Provider, { value: { user, login, logout, updatePhotoUrl, updateNotes }, children: children }));
 }
 export function useAuth() {
     const context = useContext(AuthContext);

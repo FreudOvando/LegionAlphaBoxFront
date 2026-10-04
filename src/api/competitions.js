@@ -3,6 +3,9 @@ export async function getCompetitions() {
     const { data } = await apiClient.get('/competitions');
     return data;
 }
+export async function deleteEnrollment(enrollmentId) {
+    await apiClient.delete(`/competitions/enrollments/${enrollmentId}`);
+}
 export async function getCompetition(id) {
     const { data } = await apiClient.get(`/competitions/${id}`);
     return data;

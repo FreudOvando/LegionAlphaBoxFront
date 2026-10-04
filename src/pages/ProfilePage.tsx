@@ -4,16 +4,25 @@ import { ImagePlus, Save, UserRound, X } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 
 export function ProfilePage() {
-  const { user, updatePhotoUrl } = useAuth()
+  const { user, updatePhotoUrl, updateNotes } = useAuth()
   const queryClient = useQueryClient()
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl ?? '')
   const [saved, setSaved] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
 
+  const [notes, setNotes] = useState(user?.notes ?? '')
+  const [notesSaved, setNotesSaved] = useState(false)
+  const [isSavingNotes, setIsSavingNotes] = useState(false)
+  const [notesError, setNotesError] = useState('')
+
   useEffect(() => {
     setPhotoUrl(user?.photoUrl ?? '')
   }, [user?.photoUrl])
+
+  useEffect(() => {
+    setNotes(user?.notes ?? '')
+  }, [user?.notes])
 
   if (!user) return null
 
@@ -40,6 +49,21 @@ export function ProfilePage() {
 
   function handleRemove() {
     void persistPhotoUrl(null)
+  }
+
+  async function handleSaveNotes(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsSavingNotes(true)
+    setNotesSaved(false)
+    setNotesError('')
+    try {
+      await updateNotes(notes.trim() || null)
+      setNotesSaved(true)
+    } catch {
+      setNotesError('No se pudieron guardar las notas. Intenta de nuevo.')
+    } finally {
+      setIsSavingNotes(false)
+    }
   }
 
   return (
@@ -102,6 +126,32 @@ export function ProfilePage() {
           )}
           {saved && <span className="flex items-center gap-1.5 text-sm text-emerald-400"><ImagePlus size={15} /> Foto actualizada</span>}
           {saveError && <span role="alert" className="text-sm text-red-400">{saveError}</span>}
+        </div>
+      </form>
+
+      <form onSubmit={handleSaveNotes} className="flex flex-col gap-4 border-t border-zinc-800 pt-5 mt-5">
+        <label htmlFor="notes" className="text-sm font-semibold text-zinc-200">
+          Mis PRs y notas <span className="text-zinc-500">(espacio libre, máx. 1000 caracteres)</span>
+        </label>
+        <textarea
+          id="notes"
+          rows={5}
+          value={notes}
+          onChange={(event) => {
+            setNotes(event.target.value.slice(0, 1000))
+            setNotesSaved(false)
+          }}
+          placeholder={'Ej. Fran: 3:45\nDeadlift PR: 140kg\nBack squat: 120kg'}
+          className="w-full resize-y rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none"
+        />
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs text-zinc-500">{notes.length}/1000</span>
+          <button type="submit" disabled={isSavingNotes} className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60">
+            <Save size={16} />
+            {isSavingNotes ? 'Guardando…' : 'Guardar notas'}
+          </button>
+          {notesSaved && <span className="text-sm text-emerald-400">Notas actualizadas</span>}
+          {notesError && <span role="alert" className="text-sm text-red-400">{notesError}</span>}
         </div>
       </form>
     </section>

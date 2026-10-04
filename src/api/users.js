@@ -6,6 +6,9 @@ export async function getUsers() {
     const { data } = await apiClient.get('/users');
     return data;
 }
+export async function updateProfileNotes(notes) {
+    await apiClient.patch('/users/me/notes', { notes });
+}
 export async function getMe() {
     const { data } = await apiClient.get('/users/me');
     return data;

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { createStage, deleteStage, enroll, getEnrollments, getResults, getStages, saveResult, } from '@/api/competitions';
+import { createStage, deleteEnrollment, deleteStage, enroll, getEnrollments, getResults, getStages, saveResult, } from '@/api/competitions';
 import { getErrorMessage } from '@/lib/errors';
 export function useStages(competitionId) {
     return useQuery({
@@ -16,6 +16,18 @@ export function useCreateStage(competitionId) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'stages'] });
             toast.success('WOD agregado a la competencia');
+        },
+        onError: (error) => toast.error(getErrorMessage(error)),
+    });
+}
+export function useDeleteEnrollment(competitionId) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (enrollmentId) => deleteEnrollment(enrollmentId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'enrollments'] });
+            queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'results'] });
+            toast.success('Atleta eliminado de la competencia');
         },
         onError: (error) => toast.error(getErrorMessage(error)),
     });

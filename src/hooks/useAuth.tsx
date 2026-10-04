@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import { clearSession, getStoredUser, setSession, setStoredUser } from '@/lib/authStorage'
-import { updateProfilePhoto } from '@/api/users'
+import { updateProfileNotes, updateProfilePhoto } from '@/api/users'
 import type { AuthResponse, User } from '@/types/user'
 
 interface AuthContextValue {
@@ -8,6 +8,7 @@ interface AuthContextValue {
   login: (response: AuthResponse) => void
   logout: () => void
   updatePhotoUrl: (photoUrl: string | null) => Promise<void>
+  updateNotes: (notes: string | null) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -33,7 +34,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(updatedUser)
   }
 
-  return <AuthContext.Provider value={{ user, login, logout, updatePhotoUrl }}>{children}</AuthContext.Provider>
+  async function updateNotes(notes: string | null) {
+    if (!user) return
+    await updateProfileNotes(notes)
+    const updatedUser = { ...user, notes }
+    setStoredUser(updatedUser)
+    setUser(updatedUser)
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, updatePhotoUrl, updateNotes }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth() {

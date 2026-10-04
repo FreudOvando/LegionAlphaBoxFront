@@ -10,6 +10,10 @@ export async function getUsers(): Promise<User[]> {
   return data
 }
 
+export async function updateProfileNotes(notes: string | null): Promise<void> {
+  await apiClient.patch('/users/me/notes', { notes })
+}
+
 export async function getMe(): Promise<User> {
   const { data } = await apiClient.get<User>('/users/me')
   return data

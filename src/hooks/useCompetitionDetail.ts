@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   createStage,
+  deleteEnrollment,
   deleteStage,
   enroll,
   getEnrollments,
@@ -31,6 +32,19 @@ export function useCreateStage(competitionId: number) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'stages'] })
       toast.success('WOD agregado a la competencia')
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useDeleteEnrollment(competitionId: number) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (enrollmentId: number) => deleteEnrollment(enrollmentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'enrollments'] })
+      queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'results'] })
+      toast.success('Atleta eliminado de la competencia')
     },
     onError: (error) => toast.error(getErrorMessage(error)),
   })

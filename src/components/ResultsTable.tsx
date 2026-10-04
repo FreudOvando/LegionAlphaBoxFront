@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Check, Pencil, X } from 'lucide-react'
-import { useSaveResult } from '@/hooks/useCompetitionDetail'
+import { Check, Pencil, Trash2, X } from 'lucide-react'
+import { useDeleteEnrollment, useSaveResult } from '@/hooks/useCompetitionDetail'
 import type { CompetitionEnrollment, CompetitionResult, CompetitionStage } from '@/types/competition'
 
 interface ResultsTableProps {
@@ -13,6 +13,7 @@ interface ResultsTableProps {
 
 export function ResultsTable({ competitionId, stages, enrollments, results, isAdmin }: ResultsTableProps) {
   const saveResult = useSaveResult(competitionId)
+  const deleteEnrollment = useDeleteEnrollment(competitionId)
   const [editingCell, setEditingCell] = useState<{ stageId: number; enrollmentId: number } | null>(null)
   const [draftValue, setDraftValue] = useState('')
 
@@ -53,6 +54,12 @@ export function ResultsTable({ competitionId, stages, enrollments, results, isAd
     )
   }
 
+  function handleDeleteEnrollment(enrollmentId: number, name: string) {
+    if (confirm(`¿Eliminar a ${name} de esta competencia? También se borrarán sus resultados.`)) {
+      deleteEnrollment.mutate(enrollmentId)
+    }
+  }
+
   return (
     <div className="overflow-x-auto rounded-2xl border border-zinc-800">
       <table className="w-full min-w-[600px] text-sm">
@@ -65,6 +72,7 @@ export function ResultsTable({ competitionId, stages, enrollments, results, isAd
               <th key={stage.id} className="px-4 py-3 text-center font-medium">{stage.name}</th>
             ))}
             <th className="px-4 py-3 text-center font-medium">Total</th>
+            {isAdmin && <th className="px-4 py-3 text-center font-medium">Acciones</th>}
           </tr>
         </thead>
         <tbody>
@@ -112,6 +120,17 @@ export function ResultsTable({ competitionId, stages, enrollments, results, isAd
                 )
               })}
               <td className="px-4 py-3 text-center font-bold text-orange-400">{total}</td>
+              {isAdmin && (
+                <td className="px-4 py-3 text-center">
+                  <button
+                    onClick={() => handleDeleteEnrollment(enrollment.id, enrollment.userFullName)}
+                    className="text-zinc-500 hover:text-red-400"
+                    aria-label={`Eliminar a ${enrollment.userFullName}`}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
