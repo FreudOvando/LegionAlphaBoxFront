@@ -14,6 +14,10 @@ The React Compiler is enabled on this template. See [this documentation](https:/
 Note: This will impact Vite dev & build performances.
 You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
 
+## Desarrollo local
+
+Inicia el backend en `http://localhost:8080` y luego ejecuta `npm run dev`. Vite reenvía las peticiones `/api` al backend; las rutas de autenticación son `/api/auth/register` y `/api/auth/login`.
+
 ## Expanding the Oxlint configuration
 
 If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
