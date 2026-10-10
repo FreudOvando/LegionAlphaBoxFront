@@ -16,7 +16,7 @@ You can also try [the experimental native React Compiler support in plugin-react
 
 ## Desarrollo local
 
-Inicia el backend en `http://localhost:8080` y luego ejecuta `npm run dev`. Vite reenvía las peticiones `/api` al backend; las rutas de autenticación son `/api/auth/register` y `/api/auth/login`.
+Ejecuta `npm run dev`. Vite reenvía las peticiones `/api` al backend desplegado en Railway; las rutas de autenticación son `/api/auth/register` y `/api/auth/login`. Para usar otro backend en local, cambia el destino del proxy en `vite.config.js`.
 
 ## Expanding the Oxlint configuration
 
@@ -41,9 +41,9 @@ See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rule
 ## Deploy
 ## Despliegue
 
-Genera el bundle de producción con `npm run build` y publica el directorio `dist/`. Configura `VITE_API_URL` en el entorno de build del proveedor, usando `.env.production.example` como referencia. Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí. Usa la URL pública de la API (por ejemplo, `https://api.example.com/api`) o `/api` si un proxy inverso enruta las peticiones al backend en el mismo dominio.
+Genera el bundle de producción con `npm run build` y publica el directorio `dist/` en Netlify. `netlify.toml` reenvía `/api/*` al backend de Railway y sirve `index.html` como fallback para las rutas de la aplicación. Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí. Si cambia el backend, actualiza el destino en `netlify.toml` y `vite.config.js`.
 
-La aplicación usa `BrowserRouter`; configura el hosting estático para servir `index.html` como fallback de las rutas de la aplicación, sin interceptar archivos existentes ni rutas de API. Sirve frontend y backend por HTTPS y configura CORS en el backend para permitir únicamente el origen HTTPS del frontend.
+Sirve frontend y backend por HTTPS.
 
 ## Seguridad del backend antes de producción
 
