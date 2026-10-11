@@ -41,7 +41,7 @@ See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rule
 ## Deploy
 ## Despliegue
 
-Genera el bundle de producción con `npm run build` y publica el directorio `dist/` en Netlify. `netlify.toml` reenvía `/api/*` al backend de Railway y sirve `index.html` como fallback para las rutas de la aplicación. Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí. Si cambia el backend, actualiza el destino en `netlify.toml` y `vite.config.js`.
+Genera el bundle de producción con `npm run build` y publica el directorio `dist/` en Netlify. `netlify.toml` reenvía `/api/*` al backend de Railway y sirve `index.html` como fallback para las rutas de la aplicación. Para usar ese proxy, elimina `VITE_API_URL` de las variables de Netlify o configúrala como `/api`. Si configuras la URL de Railway directamente, usa `https://workoutmebackend-production-9597.up.railway.app/api` (el cliente también agrega `https://` y `/api` si recibe solo el dominio). Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí. Si cambia el backend, actualiza el destino en `netlify.toml` y `vite.config.js`.
 
 Sirve frontend y backend por HTTPS.
 

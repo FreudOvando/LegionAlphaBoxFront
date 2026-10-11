@@ -1,8 +1,21 @@
 import axios from 'axios'
 import { clearSession, getToken } from '@/lib/authStorage'
 
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
+const apiBaseUrl = configuredApiUrl
+  ? configuredApiUrl.startsWith('/')
+    ? configuredApiUrl.replace(/\/+$/, '') || '/api'
+    : (() => {
+        const url = new URL(
+          /^https?:\/\//i.test(configuredApiUrl) ? configuredApiUrl : `https://${configuredApiUrl}`,
+        )
+        url.pathname = `${url.pathname.replace(/\/+$/, '').replace(/\/api$/i, '')}/api`
+        return url.toString().replace(/\/$/, '')
+      })()
+  : '/api'
+
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
