@@ -84,7 +84,7 @@ export function WodListPage() {
       {visibleWods.map((wod) => (
         <div key={wod.id} className="flex flex-col gap-3">
           <WodCard wod={wod} onDelete={handleDelete} />
-          {!isHistory && <Leaderboard wodId={wod.id} />}
+          <Leaderboard wodId={wod.id} />
         </div>
       ))}
       {isHistory && visibleWods.length === 0 && (
