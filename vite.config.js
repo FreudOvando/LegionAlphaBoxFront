@@ -13,7 +13,7 @@ export default defineConfig({
         port: 5173,
         proxy: {
             '/api': {
-                target: 'https://workoutmebackend-production-9597.up.railway.app',
+                target: 'http://localhost:8080',
                 changeOrigin: true,
             },
         },
