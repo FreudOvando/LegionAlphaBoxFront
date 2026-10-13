@@ -62,7 +62,7 @@ export function MyMembershipCard() {
         <button
           onClick={handlePay}
           disabled={createPayment.isPending}
-          className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:opacity-60"
+          className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:opacity-60"
         >
           {createPayment.isPending ? <Loader2 size={16} className="animate-spin" /> : <CreditCard size={16} />}
           Registrar mi pago

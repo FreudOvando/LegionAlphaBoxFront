@@ -25,7 +25,7 @@ export function RegisterPaymentButton({ userId, defaultAmount }: RegisterPayment
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 rounded-lg bg-orange-500/15 px-3 py-1.5 text-xs font-bold text-orange-400 hover:bg-orange-500/25"
+        className="flex items-center gap-1.5 rounded-lg bg-red-300/15 px-3 py-1.5 text-xs font-bold text-orange-400 hover:bg-red-300/25"
       >
         <CreditCard size={14} />
         Registrar

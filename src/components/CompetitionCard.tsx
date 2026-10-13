@@ -18,7 +18,7 @@ export function CompetitionCard({ competition, isAdmin, onDelete }: CompetitionC
   return (
     <article className="group flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 transition hover:border-zinc-700">
       <Link to={`/competitions/${competition.id}`} className="flex items-center gap-3">
-        <Trophy className="text-orange-500" size={24} />
+        <Trophy className="text-red-500" size={24} />
         <div>
           <h2 className="text-lg font-bold text-zinc-50">{competition.name}</h2>
           <p className="text-sm capitalize text-zinc-500">{formattedDate}</p>

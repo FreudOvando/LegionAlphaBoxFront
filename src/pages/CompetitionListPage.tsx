@@ -31,7 +31,7 @@ export function CompetitionListPage() {
         {isAdmin && (
           <Link
             to="/competitions/new"
-            className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
+            className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
           >
             <Plus size={18} strokeWidth={3} />
             Nueva competencia

@@ -111,10 +111,10 @@ export function ProfilePage() {
             setSaved(false)
           }}
           placeholder="https://ejemplo.com/mi-foto.jpg"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none"
+          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none"
         />
         <div className="flex flex-wrap items-center gap-2">
-          <button type="submit" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-orange-400">
+          <button type="submit" className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-orange-400">
             <Save size={16} />
             {isSaving ? 'Guardando…' : 'Guardar foto'}
           </button>
@@ -142,11 +142,11 @@ export function ProfilePage() {
             setNotesSaved(false)
           }}
           placeholder={'Ej. Fran: 3:45\nDeadlift PR: 140kg\nBack squat: 120kg'}
-          className="w-full resize-y rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none"
+          className="w-full resize-y rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none"
         />
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-zinc-500">{notes.length}/1000</span>
-          <button type="submit" disabled={isSavingNotes} className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60">
+          <button type="submit" disabled={isSavingNotes} className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60">
             <Save size={16} />
             {isSavingNotes ? 'Guardando…' : 'Guardar notas'}
           </button>

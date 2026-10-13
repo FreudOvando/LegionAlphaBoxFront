@@ -3,7 +3,7 @@ import { Plus, Trash2 } from 'lucide-react'
 import { useCreateStage, useDeleteStage, useStages } from '@/hooks/useCompetitionDetail'
 
 const inputStyles =
-  'rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500'
+  'rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500'
 
 export function StageManager({ competitionId }: { competitionId: number }) {
   const { data: stages } = useStages(competitionId)
@@ -49,7 +49,7 @@ export function StageManager({ competitionId }: { competitionId: number }) {
         <button
           type="submit"
           disabled={createStage.isPending}
-          className="flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-2 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60"
+          className="flex items-center gap-1.5 rounded-lg bg-red-500 px-3 py-2 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60"
         >
           <Plus size={16} />
           Agregar

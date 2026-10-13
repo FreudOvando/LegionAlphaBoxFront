@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useScore, useSaveScore } from '@/hooks/useScores'
 
 const inputStyles =
-  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500'
+  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500'
 
 export function ScoreForm({ wodId, onClose }: { wodId: number; onClose: () => void }) {
   const { user } = useAuth()
@@ -62,7 +62,7 @@ export function ScoreForm({ wodId, onClose }: { wodId: number; onClose: () => vo
           type="checkbox"
           checked={completed}
           onChange={(e) => setCompleted(e.target.checked)}
-          className="h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-orange-500 focus:ring-orange-500"
+          className="h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-red-500 focus:ring-red-500"
         />
         Completé el WOD
       </label>
@@ -79,7 +79,7 @@ export function ScoreForm({ wodId, onClose }: { wodId: number; onClose: () => vo
         <button
           type="submit"
           disabled={saveScore.isPending || !category}
-          className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:opacity-60"
+          className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:opacity-60"
         >
           {saveScore.isPending ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
           Guardar puntaje

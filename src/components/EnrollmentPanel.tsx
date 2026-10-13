@@ -31,7 +31,7 @@ export function EnrollmentPanel({ competitionId }: { competitionId: number }) {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value as CompetitionCategory)}
-        className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 focus:border-orange-500 focus:outline-none"
+        className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 focus:border-red-500 focus:outline-none"
       >
         {COMPETITION_CATEGORIES.map((cat) => (
           <option key={cat} value={cat}>{cat}</option>
@@ -40,7 +40,7 @@ export function EnrollmentPanel({ competitionId }: { competitionId: number }) {
       <button
         onClick={handleEnroll}
         disabled={enroll.isPending}
-        className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60"
+        className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-orange-400 disabled:opacity-60"
       >
         <UserPlus size={16} />
         Inscribirme

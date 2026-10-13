@@ -16,5 +16,5 @@ export function Layout() {
                             { to: '/competitions', label: 'Competencias', icon: Trophy },
                             { to: '/billing', label: 'Facturación', icon: CreditCard },
                             { to: '/profile', label: 'Mi perfil', icon: UserRound },
-                        ].map(({ to, label, icon: Icon, end }) => (_jsxs(NavLink, { to: to, end: end, className: ({ isActive }) => `flex shrink-0 items-center gap-2 border-b-2 px-3 py-2 text-sm transition ${isActive ? 'border-orange-500 text-orange-400' : 'border-transparent text-zinc-500 hover:text-zinc-200'}`, children: [_jsx(Icon, { size: 16 }), label] }, to))) }))] }), _jsx("main", { className: "mx-auto max-w-4xl px-4 py-8", children: _jsx(Outlet, {}) })] }));
+                        ].map(({ to, label, icon: Icon, end }) => (_jsxs(NavLink, { to: to, end: end, className: ({ isActive }) => `flex shrink-0 items-center gap-2 border-b-2 px-3 py-2 text-sm transition ${isActive ? 'border-red-500 text-orange-400' : 'border-transparent text-zinc-500 hover:text-zinc-200'}`, children: [_jsx(Icon, { size: 16 }), label] }, to))) }))] }), _jsx("main", { className: "mx-auto max-w-4xl px-4 py-8", children: _jsx(Outlet, {}) })] }));
 }

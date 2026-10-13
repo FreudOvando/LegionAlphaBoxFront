@@ -36,7 +36,7 @@ export function LoginPage() {
   return (
     <section className="mx-auto max-w-md">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">WorkoutMe-C</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-red-500">WorkoutMe-C</p>
         <h1 className="mt-2 text-3xl font-black text-zinc-50">Iniciar sesión</h1>
         <p className="mt-2 text-sm text-zinc-400">Accede a tus entrenamientos y WODs.</p>
       </div>
@@ -60,7 +60,7 @@ export function LoginPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <LogIn size={16} />}
           Entrar

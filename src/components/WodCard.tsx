@@ -42,7 +42,7 @@ export function WodCard({ wod, onDelete }: WodCardProps) {
         <div className="flex flex-wrap items-center gap-1">
           <button
             onClick={() => setShowScoreForm((prev) => !prev)}
-            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-orange-400 hover:bg-orange-500/10"
+            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-orange-400 hover:bg-red-300/10"
           >
             <ClipboardCheck size={16} />
             Registrar mi puntaje
