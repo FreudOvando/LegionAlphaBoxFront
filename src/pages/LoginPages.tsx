@@ -9,7 +9,7 @@ import { getErrorMessage } from '@/lib/errors'
 import { loginSchema, type LoginFormValues } from '@/lib/authSchema'
 
 const inputStyles =
-  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500'
+  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500'
 const labelStyles = 'mb-1.5 block text-sm font-medium text-zinc-300'
 const errorStyles = 'mt-1 text-sm text-red-400'
 
@@ -36,7 +36,7 @@ export function LoginPage() {
   return (
     <section className="mx-auto max-w-md">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">WorkoutMe</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">WorkoutMe-C</p>
         <h1 className="mt-2 text-3xl font-black text-zinc-50">Iniciar sesión</h1>
         <p className="mt-2 text-sm text-zinc-400">Accede a tus entrenamientos y WODs.</p>
       </div>

@@ -13,7 +13,7 @@ interface WodFormProps {
 }
 
 const inputStyles =
-  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500'
+  'w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500'
 
 const labelStyles = 'mb-1.5 block text-sm font-medium text-zinc-300'
 const errorStyles = 'mt-1 text-sm text-red-400'
@@ -120,7 +120,7 @@ export function WodForm({ defaultValues, onSubmit, isSubmitting, submitLabel }: 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
+        className="flex items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-bold text-zinc-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting && <Loader2 size={16} className="animate-spin" />}
         {submitLabel}

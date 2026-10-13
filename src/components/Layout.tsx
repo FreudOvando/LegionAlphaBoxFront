@@ -17,7 +17,7 @@ export function Layout() {
       <header className="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <Link to="/" className="text-2xl font-black tracking-tight">
-            Workout<span className="text-orange-500">Me</span>
+            Workout<span className="text-red-500">Me-C</span>
           </Link>
 
           <div className="flex items-center gap-3">
@@ -26,7 +26,7 @@ export function Layout() {
                 {user.role === 'ADMIN' && (
                   <Link
                     to="/wods/new"
-                    className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
+                    className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
                   >
                     <Plus size={18} strokeWidth={3} />
                     Nuevo WOD
@@ -55,7 +55,7 @@ export function Layout() {
                 </Link>
                 <Link
                   to="/register"
-                  className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
+                  className="rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-red-300"
                 >
                   Crear cuenta
                 </Link>
