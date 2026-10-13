@@ -21,6 +21,21 @@ export async function updateCompetition(id, payload) {
 export async function deleteCompetition(id) {
     await apiClient.delete(`/competitions/${id}`);
 }
+export async function getCompetitionTeams(competitionId) {
+    const { data } = await apiClient.get(`/competitions/${competitionId}/teams`);
+    return data;
+}
+export async function createCompetitionTeam(competitionId, payload) {
+    const { data } = await apiClient.post(`/competitions/${competitionId}/teams`, payload);
+    return data;
+}
+export async function updateCompetitionTeam(teamId, payload) {
+    const { data } = await apiClient.put(`/competitions/teams/${teamId}`, payload);
+    return data;
+}
+export async function deleteCompetitionTeam(teamId) {
+    await apiClient.delete(`/competitions/teams/${teamId}`);
+}
 export async function getStages(competitionId) {
     const { data } = await apiClient.get(`/competitions/${competitionId}/stages`);
     return data;
@@ -47,6 +62,32 @@ export async function enroll(competitionId, payload) {
 export async function getResults(competitionId) {
     const { data } = await apiClient.get(`/competitions/${competitionId}/results`);
     return data;
+}
+export async function getPerformances(competitionId) {
+    const { data } = await apiClient.get(`/competitions/${competitionId}/performances`);
+    return data;
+}
+export async function savePerformance(payload) {
+    const { data } = await apiClient.post('/competitions/results/performances', payload);
+    return data;
+}
+export async function deletePerformance(performanceId) {
+    await apiClient.delete(`/competitions/results/performances/${performanceId}`);
+}
+export async function getTeamResults(competitionId) {
+    const { data } = await apiClient.get(`/competitions/${competitionId}/team-results`);
+    return data;
+}
+export async function saveTeamPercentage(payload) {
+    const { data } = await apiClient.post('/competitions/team-results/percentage', payload);
+    return data;
+}
+export async function saveTeamPerformance(payload) {
+    const { data } = await apiClient.post('/competitions/team-results/performance', payload);
+    return data;
+}
+export async function deleteTeamPerformance(resultId) {
+    await apiClient.delete(`/competitions/team-results/${resultId}/performance`);
 }
 export async function saveResult(payload) {
     const { data } = await apiClient.post('/competitions/results', payload);

@@ -8,6 +8,13 @@ import type {
   CompetitionEnrollmentPayload,
   CompetitionResult,
   CompetitionResultPayload,
+  CompetitionTeam,
+  CompetitionTeamPayload,
+  CompetitionPerformance,
+  CompetitionPerformancePayload,
+  CompetitionTeamResult,
+  CompetitionTeamResultPayload,
+  CompetitionTeamPerformancePayload,
 } from '@/types/competition'
 
 export async function getCompetitions(): Promise<Competition[]> {
@@ -36,6 +43,31 @@ export async function updateCompetition(id: number, payload: CompetitionPayload)
 
 export async function deleteCompetition(id: number): Promise<void> {
   await apiClient.delete(`/competitions/${id}`)
+}
+
+export async function getCompetitionTeams(competitionId: number): Promise<CompetitionTeam[]> {
+  const { data } = await apiClient.get<CompetitionTeam[]>(`/competitions/${competitionId}/teams`)
+  return data
+}
+
+export async function createCompetitionTeam(
+  competitionId: number,
+  payload: CompetitionTeamPayload,
+): Promise<CompetitionTeam> {
+  const { data } = await apiClient.post<CompetitionTeam>(`/competitions/${competitionId}/teams`, payload)
+  return data
+}
+
+export async function updateCompetitionTeam(
+  teamId: number,
+  payload: CompetitionTeamPayload,
+): Promise<CompetitionTeam> {
+  const { data } = await apiClient.put<CompetitionTeam>(`/competitions/teams/${teamId}`, payload)
+  return data
+}
+
+export async function deleteCompetitionTeam(teamId: number): Promise<void> {
+  await apiClient.delete(`/competitions/teams/${teamId}`)
 }
 
 export async function getStages(competitionId: number): Promise<CompetitionStage[]> {
@@ -70,6 +102,39 @@ export async function enroll(competitionId: number, payload: CompetitionEnrollme
 export async function getResults(competitionId: number): Promise<CompetitionResult[]> {
   const { data } = await apiClient.get<CompetitionResult[]>(`/competitions/${competitionId}/results`)
   return data
+}
+
+export async function getPerformances(competitionId: number): Promise<CompetitionPerformance[]> {
+  const { data } = await apiClient.get<CompetitionPerformance[]>(`/competitions/${competitionId}/performances`)
+  return data
+}
+
+export async function savePerformance(payload: CompetitionPerformancePayload): Promise<CompetitionPerformance> {
+  const { data } = await apiClient.post<CompetitionPerformance>('/competitions/results/performances', payload)
+  return data
+}
+
+export async function deletePerformance(performanceId: number): Promise<void> {
+  await apiClient.delete(`/competitions/results/performances/${performanceId}`)
+}
+
+export async function getTeamResults(competitionId: number): Promise<CompetitionTeamResult[]> {
+  const { data } = await apiClient.get<CompetitionTeamResult[]>(`/competitions/${competitionId}/team-results`)
+  return data
+}
+
+export async function saveTeamPercentage(payload: CompetitionTeamResultPayload): Promise<CompetitionTeamResult> {
+  const { data } = await apiClient.post<CompetitionTeamResult>('/competitions/team-results/percentage', payload)
+  return data
+}
+
+export async function saveTeamPerformance(payload: CompetitionTeamPerformancePayload): Promise<CompetitionTeamResult> {
+  const { data } = await apiClient.post<CompetitionTeamResult>('/competitions/team-results/performance', payload)
+  return data
+}
+
+export async function deleteTeamPerformance(resultId: number): Promise<void> {
+  await apiClient.delete(`/competitions/team-results/${resultId}/performance`)
 }
 
 export async function saveResult(payload: CompetitionResultPayload): Promise<CompetitionResult> {

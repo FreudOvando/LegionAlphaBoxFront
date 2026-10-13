@@ -7,6 +7,7 @@ import { useEnrollments, useResults, useStages } from '@/hooks/useCompetitionDet
 import { StageManager } from '@/components/StageManager';
 import { EnrollmentPanel } from '@/components/EnrollmentPanel';
 import { ResultsTable } from '@/components/ResultsTable';
+import { TeamManager } from '@/components/TeamManager';
 export function CompetitionDetailPage() {
     const { id } = useParams();
     const competitionId = Number(id);
@@ -25,5 +26,5 @@ export function CompetitionDetailPage() {
         month: 'long',
         year: 'numeric',
     });
-    return (_jsxs("div", { className: "flex flex-col gap-6", children: [_jsxs(Link, { to: "/competitions", className: "inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300", children: [_jsx(ArrowLeft, { size: 16 }), "Volver a competencias"] }), _jsxs("div", { children: [_jsx("h1", { className: "text-2xl font-bold text-zinc-50", children: competition.name }), _jsx("p", { className: "text-sm capitalize text-zinc-500", children: formattedDate })] }), isAdmin && _jsx(StageManager, { competitionId: competitionId }), _jsx(EnrollmentPanel, { competitionId: competitionId }), _jsx(ResultsTable, { competitionId: competitionId, stages: stages ?? [], enrollments: enrollments ?? [], results: results ?? [], isAdmin: isAdmin })] }));
+    return (_jsxs("div", { className: "flex flex-col gap-6", children: [_jsxs(Link, { to: "/competitions", className: "inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300", children: [_jsx(ArrowLeft, { size: 16 }), "Volver a competencias"] }), _jsxs("div", { children: [_jsx("h1", { className: "text-2xl font-bold text-zinc-50", children: competition.name }), _jsx("p", { className: "text-sm capitalize text-zinc-500", children: formattedDate })] }), isAdmin && _jsx(StageManager, { competitionId: competitionId }), _jsx(EnrollmentPanel, { competitionId: competitionId }), competition.type === 'TEAM' ? (_jsx(TeamManager, { competitionId: competitionId, enrollments: enrollments ?? [], isAdmin: isAdmin })) : (_jsx(ResultsTable, { competitionId: competitionId, stages: stages ?? [], enrollments: enrollments ?? [], results: results ?? [], isAdmin: isAdmin }))] }));
 }

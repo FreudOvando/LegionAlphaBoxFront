@@ -2,19 +2,29 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
   createStage,
+  deletePerformance,
   deleteEnrollment,
   deleteStage,
+  deleteTeamPerformance,
   enroll,
   getEnrollments,
+  getPerformances,
   getResults,
   getStages,
+  getTeamResults,
+  savePerformance,
   saveResult,
+  saveTeamPerformance,
+  saveTeamPercentage,
 } from '@/api/competitions'
 import { getErrorMessage } from '@/lib/errors'
 import type {
   CompetitionEnrollmentPayload,
   CompetitionResultPayload,
   CompetitionStagePayload,
+  CompetitionPerformancePayload,
+  CompetitionTeamPerformancePayload,
+  CompetitionTeamResultPayload,
 } from '@/types/competition'
 
 export function useStages(competitionId: number) {
@@ -44,6 +54,7 @@ export function useDeleteEnrollment(competitionId: number) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'enrollments'] })
       queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'results'] })
+      queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'performances'] })
       toast.success('Atleta eliminado de la competencia')
     },
     onError: (error) => toast.error(getErrorMessage(error)),
@@ -83,20 +94,102 @@ export function useEnroll(competitionId: number) {
   })
 }
 
-export function useResults(competitionId: number) {
+export function useResults(competitionId: number, enabled = true) {
   return useQuery({
     queryKey: ['competitions', competitionId, 'results'],
     queryFn: () => getResults(competitionId),
-    enabled: !!competitionId,
+    enabled: !!competitionId && enabled,
   })
 }
 
-export function useSaveResult(competitionId: number) {
+export function usePerformances(competitionId: number, enabled = true) {
+  return useQuery({
+    queryKey: ['competitions', competitionId, 'performances'],
+    queryFn: () => getPerformances(competitionId),
+    enabled: !!competitionId && enabled,
+  })
+}
+
+export function useTeamResults(competitionId: number, enabled = true) {
+  return useQuery({
+    queryKey: ['competitions', competitionId, 'team-results'],
+    queryFn: () => getTeamResults(competitionId),
+    enabled: !!competitionId && enabled,
+  })
+}
+
+function useInvalidateScores(competitionId: number) {
   const queryClient = useQueryClient()
+  return () => {
+    queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'results'] })
+    queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'performances'] })
+    queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'team-results'] })
+  }
+}
+
+export function useSaveResult(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
   return useMutation({
     mutationFn: (payload: CompetitionResultPayload) => saveResult(payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['competitions', competitionId, 'results'] })
+      invalidateScores()
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useSavePerformance(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
+  return useMutation({
+    mutationFn: (payload: CompetitionPerformancePayload) => savePerformance(payload),
+    onSuccess: () => {
+      invalidateScores()
+      toast.success('Reps o tiempo guardado')
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useDeletePerformance(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
+  return useMutation({
+    mutationFn: (performanceId: number) => deletePerformance(performanceId),
+    onSuccess: () => {
+      invalidateScores()
+      toast.success('Reps o tiempo eliminado')
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useSaveTeamPercentage(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
+  return useMutation({
+    mutationFn: (payload: CompetitionTeamResultPayload) => saveTeamPercentage(payload),
+    onSuccess: () => invalidateScores(),
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useSaveTeamPerformance(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
+  return useMutation({
+    mutationFn: (payload: CompetitionTeamPerformancePayload) => saveTeamPerformance(payload),
+    onSuccess: () => {
+      invalidateScores()
+      toast.success('Reps o tiempo guardado')
+    },
+    onError: (error) => toast.error(getErrorMessage(error)),
+  })
+}
+
+export function useDeleteTeamPerformance(competitionId: number) {
+  const invalidateScores = useInvalidateScores(competitionId)
+  return useMutation({
+    mutationFn: (resultId: number) => deleteTeamPerformance(resultId),
+    onSuccess: () => {
+      invalidateScores()
+      toast.success('Reps o tiempo eliminado')
     },
     onError: (error) => toast.error(getErrorMessage(error)),
   })

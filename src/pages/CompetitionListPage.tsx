@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Trophy } from 'lucide-react'
+import { ChevronDown, Plus, Trophy } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { useCompetitions, useDeleteCompetition } from '@/hooks/useCompetitions'
 import { CompetitionCard } from '@/components/CompetitionCard'
@@ -7,6 +8,7 @@ import { CompetitionCard } from '@/components/CompetitionCard'
 export function CompetitionListPage() {
   const { user } = useAuth()
   const isAdmin = user?.role === 'ADMIN'
+  const [showCreateOptions, setShowCreateOptions] = useState(false)
   const { data: competitions, isLoading, isError } = useCompetitions()
   const deleteCompetition = useDeleteCompetition()
 
@@ -29,13 +31,39 @@ export function CompetitionListPage() {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-zinc-50">Competencias</h1>
         {isAdmin && (
-          <Link
-            to="/competitions/new"
-            className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
-          >
-            <Plus size={18} strokeWidth={3} />
-            Nueva competencia
-          </Link>
+          <div className="relative">
+            <button
+              type="button"
+              aria-haspopup="menu"
+              aria-expanded={showCreateOptions}
+              onClick={() => setShowCreateOptions((open) => !open)}
+              className="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-zinc-950 transition hover:bg-orange-400"
+            >
+              <Plus size={18} strokeWidth={3} />
+              Nueva competencia
+              <ChevronDown size={16} />
+            </button>
+            {showCreateOptions && (
+              <div role="menu" className="absolute right-0 z-10 mt-2 w-48 overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900 shadow-xl">
+                <Link
+                  role="menuitem"
+                  to="/competitions/new?type=INDIVIDUAL"
+                  onClick={() => setShowCreateOptions(false)}
+                  className="block px-4 py-3 text-sm text-zinc-200 hover:bg-zinc-800"
+                >
+                  Individual
+                </Link>
+                <Link
+                  role="menuitem"
+                  to="/competitions/new?type=TEAM"
+                  onClick={() => setShowCreateOptions(false)}
+                  className="block px-4 py-3 text-sm text-zinc-200 hover:bg-zinc-800"
+                >
+                  En equipos
+                </Link>
+              </div>
+            )}
+          </div>
         )}
       </div>
 

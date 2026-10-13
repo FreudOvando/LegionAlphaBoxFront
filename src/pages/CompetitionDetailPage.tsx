@@ -6,6 +6,7 @@ import { useEnrollments, useResults, useStages } from '@/hooks/useCompetitionDet
 import { StageManager } from '@/components/StageManager'
 import { EnrollmentPanel } from '@/components/EnrollmentPanel'
 import { ResultsTable } from '@/components/ResultsTable'
+import { TeamManager } from '@/components/TeamManager'
 
 export function CompetitionDetailPage() {
   const { id } = useParams()
@@ -46,13 +47,21 @@ export function CompetitionDetailPage() {
 
       <EnrollmentPanel competitionId={competitionId} />
 
-      <ResultsTable
-        competitionId={competitionId}
-        stages={stages ?? []}
-        enrollments={enrollments ?? []}
-        results={results ?? []}
-        isAdmin={isAdmin}
-      />
+      {competition.type === 'TEAM' ? (
+        <TeamManager
+          competitionId={competitionId}
+          enrollments={enrollments ?? []}
+          isAdmin={isAdmin}
+        />
+      ) : (
+        <ResultsTable
+          competitionId={competitionId}
+          stages={stages ?? []}
+          enrollments={enrollments ?? []}
+          results={results ?? []}
+          isAdmin={isAdmin}
+        />
+      )}
     </div>
   )
 }

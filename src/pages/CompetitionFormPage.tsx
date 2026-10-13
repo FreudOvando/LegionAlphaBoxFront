@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { CompetitionForm } from '@/components/CompetitionForm'
 import { useCompetition, useCreateCompetition, useUpdateCompetition } from '@/hooks/useCompetitions'
@@ -6,6 +6,7 @@ import type { CompetitionFormValues } from '@/lib/competitionSchema'
 
 export function CompetitionFormPage() {
   const { id } = useParams()
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const isEditing = Boolean(id)
   const competitionId = Number(id)
@@ -16,8 +17,8 @@ export function CompetitionFormPage() {
   const mutation = isEditing ? updateCompetition : createCompetition
 
   const defaultValues: Partial<CompetitionFormValues> | undefined = competition
-    ? { name: competition.name, competitionDate: competition.competitionDate }
-    : undefined
+    ? { name: competition.name, competitionDate: competition.competitionDate, type: competition.type }
+    : { type: searchParams.get('type') === 'TEAM' ? 'TEAM' : 'INDIVIDUAL' }
 
   function handleSubmit(values: CompetitionFormValues) {
     mutation.mutate(values, { onSuccess: () => navigate('/competitions') })
@@ -37,6 +38,9 @@ export function CompetitionFormPage() {
       <h1 className="mb-6 text-2xl font-bold text-zinc-50">
         {isEditing ? 'Editar competencia' : 'Nueva competencia'}
       </h1>
+      <p className="mb-5 text-sm text-zinc-400">
+        Tipo: {defaultValues?.type === 'TEAM' ? 'En equipos' : 'Individual'}
+      </p>
 
       <CompetitionForm
         defaultValues={defaultValues}

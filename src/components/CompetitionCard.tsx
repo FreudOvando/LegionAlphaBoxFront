@@ -21,7 +21,12 @@ export function CompetitionCard({ competition, isAdmin, onDelete }: CompetitionC
         <Trophy className="text-red-500" size={24} />
         <div>
           <h2 className="text-lg font-bold text-zinc-50">{competition.name}</h2>
-          <p className="text-sm capitalize text-zinc-500">{formattedDate}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm capitalize text-zinc-500">{formattedDate}</p>
+            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400">
+              {competition.type === 'TEAM' ? 'En equipos' : 'Individual'}
+            </span>
+          </div>
         </div>
       </Link>
 
