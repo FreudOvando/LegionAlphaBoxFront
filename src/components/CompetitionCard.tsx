@@ -31,17 +31,18 @@ export function CompetitionCard({ competition, isAdmin, onDelete }: CompetitionC
       </Link>
 
       {isAdmin && (
-        <div className="flex items-center gap-1 opacity-0 transition group-hover:opacity-100">
+        <div className="flex shrink-0 items-center gap-1">
           <Link
             to={`/competitions/${competition.id}/edit`}
-            className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+            className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500"
             aria-label="Editar competencia"
           >
             <Pencil size={16} />
           </Link>
           <button
+            type="button"
             onClick={() => onDelete(competition.id)}
-            className="rounded-lg p-2 text-zinc-400 hover:bg-red-500/10 hover:text-red-400"
+            className="rounded-lg p-2 text-zinc-400 transition hover:bg-red-500/10 hover:text-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500"
             aria-label="Eliminar competencia"
           >
             <Trash2 size={16} />

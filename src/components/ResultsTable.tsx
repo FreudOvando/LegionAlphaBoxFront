@@ -144,7 +144,7 @@ export function ResultsTable({
   }
 
   function confirmPerformanceEdit(row: ScoreRow) {
-    if (!editingPerformance || !/^[0-9]{1,20}$/.test(draftValue)) return
+    if (!editingPerformance || !/^[\p{L}\p{N} .:;]{1,20}$/u.test(draftValue)) return
 
     if (isTeamCompetition) {
       saveTeamPerformance.mutate(
@@ -287,17 +287,20 @@ export function ResultsTable({
                           <input
                             autoFocus
                             type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]{1,20}"
+                            inputMode="text"
+                            pattern="[\p{L}\p{N} .:;]{1,20}"
                             maxLength={20}
                             value={draftValue}
-                            onChange={(event) => setDraftValue(event.target.value.replace(/\D/g, '').slice(0, 20))}
+                            onChange={(event) =>
+                              setDraftValue(event.target.value.replace(/[^\p{L}\p{N} .:;]/gu, '').slice(0, 20))
+                            }
                             className="w-24 rounded border border-zinc-700 bg-zinc-900 px-1 py-0.5 text-center text-zinc-100"
                             aria-label={`Reps o tiempo de ${row.label}, ${stage.name}`}
+                            title="Usa hasta 20 caracteres: letras, números, espacios, punto, dos puntos y punto y coma"
                           />
                           <button
                             type="button"
-                            disabled={isSaving || !/^[0-9]{1,20}$/.test(draftValue)}
+                            disabled={isSaving || !/^[\p{L}\p{N} .:;]{1,20}$/u.test(draftValue)}
                             onClick={() => confirmPerformanceEdit(row)}
                             className="text-emerald-400 hover:text-emerald-300 disabled:opacity-50"
                             aria-label="Guardar reps o tiempo"
