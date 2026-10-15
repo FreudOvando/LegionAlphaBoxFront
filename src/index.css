@@ -9,7 +9,7 @@
   --color-zinc-500: var(--brand-text-muted);
   --color-zinc-600: var(--brand-border-muted);
   --color-zinc-700: var(--brand-border);
-  --color-zinc-800: var(--brand-surfaceMuted);
+  --color-zinc-800: var(--brand-surface-muted);
   --color-zinc-900: var(--brand-surface);
   --color-zinc-950: var(--brand-background);
   --color-red-300: var(--brand-primary-light);
@@ -21,7 +21,7 @@
   --color-orange-400: var(--brand-primary-hover);
   --color-emerald-300: var(--brand-success-light);
   --color-emerald-400: var(--brand-success);
-  --color-emerald-500: var(--brand-successStrong);
+  --color-emerald-500: var(--brand-success-strong);
   --color-amber-400: var(--brand-warning);
   --color-amber-500: var(--brand-warning-strong);
   --color-fuchsia-400: var(--brand-accent-light);

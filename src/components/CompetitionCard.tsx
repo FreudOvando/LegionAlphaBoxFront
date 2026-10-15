@@ -34,7 +34,7 @@ export function CompetitionCard({ competition, isAdmin, onDelete }: CompetitionC
         <div className="flex shrink-0 items-center gap-1">
           <Link
             to={`/competitions/${competition.id}/edit`}
-            className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500"
+            className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100  focus-visible:outline-2 focus-visible:outline-red-500"
             aria-label="Editar competencia"
           >
             <Pencil size={16} />

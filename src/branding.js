@@ -1,5 +1,5 @@
 const branding = {
-    name: 'Fitness Platform',
+    name: 'Legion Alpha Crossfit',
     logoUrl: '',
     faviconUrl: '/favicon.svg',
     colors: {
@@ -15,11 +15,11 @@ const branding = {
         textStrong: '#f4f4f5',
         textBright: '#fafafa',
         textDark: '#09090b',
-        primary: '#ef4444',
-        primaryHover: '#fb923c',
-        primaryLight: '#fca5a5',
-        primaryBorder: '#7f1d1d',
-        primarySubtle: '#450a0a',
+        primary: '#f4f4f5',
+        primaryHover: '#d4d4d8',
+        primaryLight: '#e4e4e7',
+        primaryBorder: '#52525b',
+        primarySubtle: '#27272a',
         danger: '#f87171',
         success: '#34d399',
         successStrong: '#10b981',

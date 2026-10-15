@@ -60,7 +60,7 @@ export function MembersBillingTable() {
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-zinc-800">
-      <table className="w-full min-w-[700px] text-sm">
+      <table className="w-full min-w-700px text-sm">
         <thead>
           <tr className="border-b border-zinc-800 bg-zinc-900/60 text-left text-zinc-400">
             <th className="px-4 py-3 font-medium"></th>
