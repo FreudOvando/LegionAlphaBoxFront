@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { login as loginRequest } from '@/api/Auth'
+import { branding } from '@/branding'
 import { useAuth } from '@/hooks/useAuth'
 import { getErrorMessage } from '@/lib/errors'
 import { loginSchema, type LoginFormValues } from '@/lib/authSchema'
@@ -36,7 +37,7 @@ export function LoginPage() {
   return (
     <section className="mx-auto max-w-md">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-widest text-red-500">WorkoutMe-C</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-red-500">{branding.name}</p>
         <h1 className="mt-2 text-3xl font-black text-zinc-50">Iniciar sesión</h1>
         <p className="mt-2 text-sm text-zinc-400">Accede a tus entrenamientos y WODs.</p>
       </div>

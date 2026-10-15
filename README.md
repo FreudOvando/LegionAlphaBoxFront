@@ -1,6 +1,16 @@
-# React + TypeScript + Vite
+# Fitness Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Personalizar una instancia
+
+Actualiza la configuración antes de compilar:
+
+- `src/branding.ts`: cambia `name`, `logoUrl`, `faviconUrl` y los valores hexadecimales de `colors`. Esta es la única fuente de configuración de marca y colores. Deja `logoUrl` vacío para mostrar el nombre como texto; para usar una imagen, copia el archivo del cliente a `public/` y configura su ruta, por ejemplo `/brand/logo.svg`.
+- `public/favicon.svg`: reemplaza el favicon genérico o configura otra ruta en `faviconUrl`.
+- Backend: define `APP_ADMIN_EMAIL` para el correo administrador. `APP_NAME` permite establecer el nombre identificador del proceso; no controla el nombre de marca visible en la interfaz.
+
+Después ejecuta `npm run build` y publica `dist/`. No hace falta editar los componentes para cambiar colores: sus clases Tailwind existentes usan los tokens definidos en `src/index.css`, que se alimentan desde `src/branding.ts`.
+
+Frontend de la plataforma, construido con React, TypeScript y Vite.
 
 Currently, two official plugins are available:
 
@@ -38,10 +48,9 @@ If you are developing a production application, we recommend enabling type-aware
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
 
-## Deploy
 ## Despliegue
 
-Genera el bundle de producción con `npm run build` y publica el directorio `dist/` en Netlify. `netlify.toml` reenvía `/api/*` al backend de Railway y sirve `index.html` como fallback para las rutas de la aplicación. Para usar ese proxy, elimina `VITE_API_URL` de las variables de Netlify o configúrala como `/api`. Si configuras la URL de Railway directamente, usa `https://workoutmebackend-production-9597.up.railway.app/api` (el cliente también agrega `https://` y `/api` si recibe solo el dominio). Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí. Si cambia el backend, actualiza el destino en `netlify.toml` y `vite.config.js`.
+Genera el bundle de producción con `npm run build` y publica el directorio `dist/` en Netlify. `netlify.toml` reenvía `/api/*` al backend y sirve `index.html` como fallback para las rutas de la aplicación. Para usar ese proxy, elimina `VITE_API_URL` de las variables de Netlify o configúrala como `/api`. Si el cliente usa otro backend, actualiza el destino en `netlify.toml` o configura `VITE_API_URL` para el frontend. Vite incorpora los valores `VITE_*` al bundle del navegador: nunca pongas credenciales ni secretos ahí.
 
 Sirve frontend y backend por HTTPS.
 

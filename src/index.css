@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@theme static {
+  --color-zinc-50: var(--brand-text-bright);
+  --color-zinc-100: var(--brand-text-strong);
+  --color-zinc-200: var(--brand-text-primary);
+  --color-zinc-300: var(--brand-text);
+  --color-zinc-400: var(--brand-text-secondary);
+  --color-zinc-500: var(--brand-text-muted);
+  --color-zinc-600: var(--brand-border-muted);
+  --color-zinc-700: var(--brand-border);
+  --color-zinc-800: var(--brand-surfaceMuted);
+  --color-zinc-900: var(--brand-surface);
+  --color-zinc-950: var(--brand-background);
+  --color-red-300: var(--brand-primary-light);
+  --color-red-400: var(--brand-danger);
+  --color-red-500: var(--brand-primary);
+  --color-red-900: var(--brand-primary-border);
+  --color-red-950: var(--brand-primary-subtle);
+  --color-orange-300: var(--brand-primary-light);
+  --color-orange-400: var(--brand-primary-hover);
+  --color-emerald-300: var(--brand-success-light);
+  --color-emerald-400: var(--brand-success);
+  --color-emerald-500: var(--brand-successStrong);
+  --color-amber-400: var(--brand-warning);
+  --color-amber-500: var(--brand-warning-strong);
+  --color-fuchsia-400: var(--brand-accent-light);
+  --color-fuchsia-500: var(--brand-accent);
+  --color-sky-400: var(--brand-info-light);
+  --color-sky-500: var(--brand-info);
+}

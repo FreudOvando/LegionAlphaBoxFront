@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Loader2, UserPlus } from 'lucide-react'
 import { toast } from 'sonner'
 import { register as registerRequest } from '@/api/Auth'
+import { branding } from '@/branding'
 import { useAuth } from '@/hooks/useAuth'
 import { getErrorMessage } from '@/lib/errors'
 import { registerSchema, type RegisterFormValues } from '@/lib/authSchema'
@@ -39,7 +40,7 @@ export function RegisterPage() {
   return (
     <section className="mx-auto max-w-md">
       <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-widest text-red-500">WorkoutMe</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-red-500">{branding.name}</p>
         <h1 className="mt-2 text-3xl font-black text-zinc-50">Crear cuenta</h1>
         <p className="mt-2 text-sm text-zinc-400">Únete a tu comunidad de entrenamiento.</p>
       </div>

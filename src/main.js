@@ -6,7 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import App from './App';
 import { AuthProvider } from '@/hooks/useAuth';
+import { applyBranding } from '@/branding';
 import './index.css';
+applyBranding();
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
