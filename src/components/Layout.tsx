@@ -17,12 +17,17 @@ export function Layout() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <header className="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <Link to="/" aria-label={branding.name} className="text-2xl font-black tracking-tight">
+          <Link to="/" aria-label={branding.name} className="inline-flex items-center gap-3 text-2xl font-black tracking-tight">
             {branding.logoUrl ? (
               <img src={branding.logoUrl} alt={branding.name} className="h-8 max-w-40 object-contain" />
             ) : (
               <span className="text-red-500">{branding.name}</span>
             )}
+            <img
+              src="/LegionAlphaphoto.jpeg"
+              alt="Logo de Legion Alpha"
+              className="h-10 w-14 shrink-0 rounded object-contain sm:h-12 sm:w-16"
+            />
           </Link>
 
           <div className="flex items-center gap-3">

@@ -1,5 +1,5 @@
 const branding = {
-  name: 'Legion Alpha Crossfit',
+  name: 'Legion Alpha',
   logoUrl: '',
   faviconUrl: '/favicon.svg',
   colors: {
